@@ -47,7 +47,7 @@ const renderImg = imgArray => {
                       </button>
                       <button
                         type="button"
-                        class="btn btn-sm btn-outline-secondary"
+                        class="btn btn-sm btn-outline-secondary hide-btn"
                       >
                         Hide
                       </button>
@@ -60,21 +60,42 @@ const renderImg = imgArray => {
         `
     });
 
+// adding event listners to view buttons;
+
     const viewBtns = document.querySelectorAll(".view-btn");
     viewBtns.forEach(viewBtn => {
         viewBtn.addEventListener("click",(event) => {
-            const clickedBtn = event.currentTarget;
+            showModal(event);
+        } )
+    })
+
+// adding event listners to hide buttons;
+ 
+    const hideBtns = document.querySelectorAll(".hide-btn");
+    hideBtns.forEach(hideBtn => {
+        hideBtn.addEventListener("click", (event) => {
+            removeCard(event);
+        } )
+    })
+    
+}
+
+const showModal = (event) => {
+    const clickedBtn = event.currentTarget;
             // console.log(clickedBtn);
             const currentCard = clickedBtn.closest(".card");
             // console.log(currentCard)
             const imgSrc = currentCard.querySelector("img").src;
             // console.log(imgSrc);
-            showModal(imgSrc);
-        } )
-    })
+            
+    modalImg.src = imgSrc;
 }
 
-const showModal = imgSrc => {
-    modalImg.src = imgSrc;
+const removeCard = (event) => {
+    const clickedBtn = event.currentTarget;
+    const currentCard = clickedBtn.closest(".card");
+    const currentParent = currentCard.parentElement;
+    currentParent.remove();
+    
 }
 
