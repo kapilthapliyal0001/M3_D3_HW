@@ -1,29 +1,30 @@
+// Main Button : Blue load Images button;
 const mainImgBtn = document.getElementById("main-img-btn");
+// SecImgBtn: Grey secondary Image button;
 const secImgBtn = document.getElementById("sec-img-btn");
 
-const albumRow = document.querySelector(".album .row")
+const albumRow = document.querySelector(".album .row");
 
 const modalImg = document.getElementById("modal-img");
 
 mainImgBtn.addEventListener("click", () => {
-    fetchImgs("beaches");
-} );
+  fetchImgs("beaches");
+});
 
 secImgBtn.addEventListener("click", () => {
-    fetchImgs("forest")
-} );
+  fetchImgs("forest");
+});
 
-const fetchImgs = query => {
-    fetch(`http://www.splashbase.co/api/v1/images/search?query=${query}`).then((response) => response.json()).then((data) => renderImg(data.images) );
-}
+const fetchImgs = (query) => {
+  fetch(`http://www.splashbase.co/api/v1/images/search?query=${query}`)
+    .then((response) => response.json())
+    .then((data) => renderImg(data.images));
+};
 
-
-
-const renderImg = imgArray => {
-    albumRow.innerHTML = "";
-    imgArray.forEach(img => {
-        albumRow.innerHTML +=
-        `
+const renderImg = (imgArray) => {
+  albumRow.innerHTML = "";
+  imgArray.forEach((img) => {
+    albumRow.innerHTML += `
         <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
                 <img src="${img.url}">
@@ -57,45 +58,42 @@ const renderImg = imgArray => {
                 </div>
               </div>
             </div>
-        `
+        `;
+  });
+
+  // adding event listners to view buttons;
+
+  const viewBtns = document.querySelectorAll(".view-btn");
+  viewBtns.forEach((viewBtn) => {
+    viewBtn.addEventListener("click", (event) => {
+      showModal(event);
     });
+  });
 
-// adding event listners to view buttons;
+  // adding event listners to hide buttons;
 
-    const viewBtns = document.querySelectorAll(".view-btn");
-    viewBtns.forEach(viewBtn => {
-        viewBtn.addEventListener("click",(event) => {
-            showModal(event);
-        } )
-    })
-
-// adding event listners to hide buttons;
- 
-    const hideBtns = document.querySelectorAll(".hide-btn");
-    hideBtns.forEach(hideBtn => {
-        hideBtn.addEventListener("click", (event) => {
-            removeCard(event);
-        } )
-    })
-    
-}
+  const hideBtns = document.querySelectorAll(".hide-btn");
+  hideBtns.forEach((hideBtn) => {
+    hideBtn.addEventListener("click", (event) => {
+      removeCard(event);
+    });
+  });
+};
 
 const showModal = (event) => {
-    const clickedBtn = event.currentTarget;
-            // console.log(clickedBtn);
-            const currentCard = clickedBtn.closest(".card");
-            // console.log(currentCard)
-            const imgSrc = currentCard.querySelector("img").src;
-            // console.log(imgSrc);
-            
-    modalImg.src = imgSrc;
-}
+  const clickedBtn = event.currentTarget;
+  // console.log(clickedBtn);
+  const currentCard = clickedBtn.closest(".card");
+  // console.log(currentCard)
+  const imgSrc = currentCard.querySelector("img").src;
+  // console.log(imgSrc);
+
+  modalImg.src = imgSrc;
+};
 
 const removeCard = (event) => {
-    const clickedBtn = event.currentTarget;
-    const currentCard = clickedBtn.closest(".card");
-    const currentParent = currentCard.parentElement;
-    currentParent.remove();
-    
-}
-
+  const clickedBtn = event.currentTarget;
+  const currentCard = clickedBtn.closest(".card");
+  const currentParent = currentCard.parentElement;
+  currentParent.remove();
+};
