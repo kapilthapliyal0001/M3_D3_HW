@@ -7,12 +7,17 @@ const albumRow = document.querySelector(".album .row");
 
 const modalImg = document.getElementById("modal-img");
 
+// const searchBarVal = document.getElementById("search-bar").value;
+// console.log(searchBarVal);
+
 mainImgBtn.addEventListener("click", () => {
-  fetchImgs("beaches");
+  const searchBarVal = document.getElementById("search-bar").value;
+  fetchImgs(searchBarVal);
 });
 
 secImgBtn.addEventListener("click", () => {
-  fetchImgs("forest");
+  const searchBarVal = document.getElementById("search-bar").value;
+  fetchImgs(searchBarVal);
 });
 
 const fetchImgs = (query) => {

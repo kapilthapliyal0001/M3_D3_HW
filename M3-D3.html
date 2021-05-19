@@ -98,6 +98,11 @@
         -ms-user-select: none;
         user-select: none;
       }
+      input {
+        display: block;
+        justify-content: flex-end;
+        margin-bottom: 2%;
+      }
 
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
@@ -179,6 +184,7 @@
             them in a cool way!
           </p>
           <p>
+            <div class="d-flex justify-content-around"><input type="text" name="" id="search-bar" placeholder="Images to see..." /></div>
             <button class="btn btn-primary my-2" id="main-img-btn">
               Load Images
             </button>
