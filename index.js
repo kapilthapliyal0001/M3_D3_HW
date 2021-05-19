@@ -11,18 +11,22 @@ const modalImg = document.getElementById("modal-img");
 // console.log(searchBarVal);
 
 mainImgBtn.addEventListener("click", () => {
-  const searchBarVal = document.getElementById("search-bar").value;
+  const searchBarVal = document.getElementById("search-bar").value; // grabbing the text from the input field
   fetchImgs(searchBarVal);
 });
 
 secImgBtn.addEventListener("click", () => {
-  const searchBarVal = document.getElementById("search-bar").value;
+  const searchBarVal = document.getElementById("search-bar").value; // grabbing the text from the input field
   fetchImgs(searchBarVal);
 });
 
 const fetchImgs = (query) => {
   fetch(`http://www.splashbase.co/api/v1/images/search?query=${query}`)
     .then((response) => response.json())
+    // .then((newData) => {
+    //   console.log(newData);
+    //   return newData;
+    // })
     .then((data) => renderImg(data.images));
 };
 
@@ -66,7 +70,7 @@ const renderImg = (imgArray) => {
         `;
   });
 
-  // adding event listners to view buttons;
+  // adding event listeners to view buttons;
 
   const viewBtns = document.querySelectorAll(".view-btn");
   viewBtns.forEach((viewBtn) => {
@@ -75,7 +79,7 @@ const renderImg = (imgArray) => {
     });
   });
 
-  // adding event listners to hide buttons;
+  // adding event listeners to hide buttons;
 
   const hideBtns = document.querySelectorAll(".hide-btn");
   hideBtns.forEach((hideBtn) => {
@@ -85,20 +89,22 @@ const renderImg = (imgArray) => {
   });
 };
 
+// function to show the modal when the view button has been chlicked;
 const showModal = (event) => {
   const clickedBtn = event.currentTarget;
   // console.log(clickedBtn);
-  const currentCard = clickedBtn.closest(".card");
+  const currentCard = clickedBtn.closest(".card"); // will choose the closest html element having the class "card"
   // console.log(currentCard)
-  const imgSrc = currentCard.querySelector("img").src;
+  const imgSrc = currentCard.querySelector("img").src; // to grab the img-source;
   // console.log(imgSrc);
 
   modalImg.src = imgSrc;
 };
 
+// function to remove the card when the hide button has been clicked;
 const removeCard = (event) => {
   const clickedBtn = event.currentTarget;
   const currentCard = clickedBtn.closest(".card");
-  const currentParent = currentCard.parentElement;
+  const currentParent = currentCard.parentElement; // to grab the nearest parent to be deleted;
   currentParent.remove();
 };
